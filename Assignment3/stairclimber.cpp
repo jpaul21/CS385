@@ -63,7 +63,7 @@ int main(int argc, char * const argv[]) {
 	if(argc != 2 || (*argv[1]) < 1){
 		cout << "Error: Number of stairs must be a positive integer.";
 	}
-	vector<vector<int>> way = get_ways(*argv[1]);
+	vector< vector<int> > way = get_ways(*argv[1]);
 	display_ways(way);
 	return 0;
 }
