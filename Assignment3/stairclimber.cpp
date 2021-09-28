@@ -40,18 +40,21 @@ void display_ways(const vector< vector<int> > &ways) {
     // TODO: Display the ways to climb stairs by iterating over
     // the vector of vectors and printing each combination.
 	int length = ways.size();
-	int digits = 0;
+	int digits = 1;
 	while(length /= 10 > 0){
 		digits++;
 	}
 	vector<int> temp;
-	for(auto i = ways.cbegin(); i != ways.cend(); ++i){
-		temp = *i;
+	if(ways.size() == 1){
+		cout << "1 way to climb 1 stair.";
+	} else cout << 2*ways.size() << " ways to climb " << ways.size() << " stairs.";
+	for(int i = 0; i < length; ++i){
+		temp = ways[i];
 		cout << setw(digits);
 		cout << i << ". " << "[";
-		for(auto j = temp.cbegin(); j != temp.cend(); ++j){
-			cout << *j;
-			if(j != temp.cend()){
+		for(int j = 0; j < temp.size(); ++j){
+			cout << j;
+			if(j != temp.size()){
 				cout << ", ";
 			}
 		}
@@ -60,10 +63,23 @@ void display_ways(const vector< vector<int> > &ways) {
 }
 
 int main(int argc, char * const argv[]) {
-	if(argc != 2 || (*argv[1]) < 1){
-		cout << "Error: Number of stairs must be a positive integer.";
+	if(argc != 2){
+		cout << "Usage: ./stairclimber <number of stairs>";
+		return 0;
 	}
-	vector< vector<int> > way = get_ways(*argv[1]);
+	int num;
+	istringstream iss;
+	iss.str(argv[1]);
+	if(!(iss >> num)){
+		cout <<"Error: Number of stairs must be a positive integer."; 
+		return 0;
+	}
+
+	if(num < 1){
+		cout << "Error: Number of stairs must be a positive integer.";
+		return 0;
+	}
+	vector< vector<int> > way = get_ways(num);
 	display_ways(way);
 	return 0;
 }
